@@ -1,4 +1,4 @@
-rootProject.name = "vikunja-task-scheduler"
+rootProject.name = "vikunja-utils"
 
 include(
   "app",
