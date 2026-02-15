@@ -4,3 +4,7 @@ comments:
     ignoreDefaultCompanionObject: true
   UndocumentedPublicFunction:
     active: true
+coroutines:
+  RedundantSuspendModifier:
+    # too many false positives
+    active: false
