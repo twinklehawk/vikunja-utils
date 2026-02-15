@@ -9,14 +9,12 @@ ktor = "3.4.0"
 logback = "1.5.26"
 mockk = "1.14.7"
 mockwebserver = "5.3.2"
+openapi-generator = "7.19.0"
 slf4j = "2.0.17"
-spring-boot = "4.0.1"
 
 [libraries]
 assertj = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 detekt-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
-jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations" }
-jackson-kotlin = { module = "tools.jackson.module:jackson-module-kotlin" }
 junit = { module = "org.junit.jupiter:junit-jupiter" }
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
@@ -25,7 +23,6 @@ kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8"}
 kotlinx-coroutines-bom = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-bom", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm" }
-kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test" }
 kotlin-jvm-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -39,17 +36,10 @@ logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockwebserver = { module = "com.squareup.okhttp3:mockwebserver3", version.ref = "mockwebserver" }
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
-spring-boot-bom = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
-spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
-spring-boot-starter-webclient = { module = "org.springframework.boot:spring-boot-starter-webclient" }
-spring-webflux = { module = "org.springframework:spring-webflux" }
 
 [plugins]
 detekt = { id = "io.gitlab.arturbosch.detekt" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 kotlinter = { id = "org.jmailen.kotlinter" }
-ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
-spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
-spring-boot-aot = { id = "org.springframework.boot.aot", version.ref = "spring-boot" }
+openapi-generator = { id = "org.openapi.generator", version.ref = "openapi-generator" }
