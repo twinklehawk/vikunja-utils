@@ -5,7 +5,7 @@ plugins {
   id("project-conventions")
   `java-library`
   alias(libs.plugins.kotlin.serialization)
-  id("org.openapi.generator") version "7.19.0"
+  alias(libs.plugins.openapi.generator)
 }
 
 dependencies {
