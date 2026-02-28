@@ -13,14 +13,13 @@ dependencies {
 
   implementation(libs.kotlin.reflect)
   implementation(libs.kotlin.stdlib)
+  implementation(libs.ktor.client.cio)
+  implementation(libs.ktor.client.contentNegotiation)
+  implementation(libs.ktor.client.core)
+  implementation(libs.ktor.serialization.json)
   implementation(libs.slf4j.api)
 
-  // TODO
-  implementation(libs.ktor.client.cio)
-  implementation(libs.ktor.client.core)
-  implementation(libs.ktor.client.contentNegotiation)
-  implementation(libs.ktor.serialization.json)
-
+  testImplementation(project(":test-utils"))
   testImplementation(libs.assertj)
   testImplementation(libs.junit)
   testImplementation(libs.kotlinx.coroutines.test)
