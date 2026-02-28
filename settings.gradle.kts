@@ -1,8 +1,9 @@
 rootProject.name = "vikunja-utils"
 
 include(
-  "app",
+  "test-utils",
   "vikunja-client",
+  "vikunja-task-creator",
 )
 
 dependencyResolutionManagement {
