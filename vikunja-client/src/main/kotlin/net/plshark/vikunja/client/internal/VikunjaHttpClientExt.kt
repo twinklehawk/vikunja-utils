@@ -11,7 +11,10 @@ import net.plshark.vikunja.client.internal.HttpExceptionExt.toVikunjaException
 
 /** Extension functions for HttpClient for Vikunja. */
 internal object VikunjaHttpClientExt {
-  /** Makes a request, parses the response body, and wraps any HTTP exceptions into a [net.plshark.vikunja.client.VikunjaException]. */
+  /**
+   * Makes a request, parses the response body, and wraps any HTTP exceptions into a
+   * [net.plshark.vikunja.client.VikunjaException].
+   */
   internal suspend inline fun <reified T> HttpClient.executeRequestAndParseBody(
     block: HttpRequestBuilder.() -> Unit,
   ): T = executeRequest(block).body()

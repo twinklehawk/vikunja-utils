@@ -133,11 +133,12 @@ class ProjectsClientImplTest {
         ),
       )
 
-      client.getProjects(
-        titleQuery = "title",
-        fetchArchived = true,
-        expand = "Permissions",
-      ).collect()
+      client
+        .getProjects(
+          titleQuery = "title",
+          fetchArchived = true,
+          expand = "Permissions",
+        ).collect()
 
       val actualRequest = server.takeRequest()
       assertThat(actualRequest.url.queryParameter("page")).isEqualTo("1")
