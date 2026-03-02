@@ -5,7 +5,8 @@ import kotlinx.serialization.json.Json
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
 import net.plshark.test.TestUtils.doBlocking
-import net.plshark.vikunja.client.Something
+import net.plshark.vikunja.client.VikunjaClientBuilder
+import net.plshark.vikunja.client.VikunjaClientConfig
 import net.plshark.vikunja.client.VikunjaException
 import net.plshark.vikunja.client.auth.ApiTokenProvider
 import net.plshark.vikunja.client.models.ModelsTask
@@ -24,9 +25,15 @@ class TasksClientImplTest {
   @BeforeEach
   fun setup() {
     server.start()
+    val config =
+      VikunjaClientConfig(
+        authenticationType = VikunjaClientConfig.AuthenticationType.ApiToken,
+        apiKey = "test-token",
+        host = server.url("").toString().removeSuffix("/"),
+      )
     client =
       TasksClientImpl(
-        httpClient = Something.createDefaultHttpClient(),
+        httpClient = VikunjaClientBuilder(config).createDefaultHttpClient(),
         tokenProvider = ApiTokenProvider("test-token"),
         host = server.url("").toString().removeSuffix("/"),
       )
@@ -112,7 +119,7 @@ class TasksClientImplTest {
 
       assertThat(response).isEqualTo(ModelsTask())
       val actualRequest = server.takeRequest()
-      assertThat(actualRequest.method).isEqualTo("POST")
+      assertThat(actualRequest.method).isEqualTo("PUT")
       assertThat(actualRequest.url.encodedPath).isEqualTo("/api/v1/projects/1/tasks")
       assertThat(actualRequest.headers).contains(
         "Accept" to "application/json",

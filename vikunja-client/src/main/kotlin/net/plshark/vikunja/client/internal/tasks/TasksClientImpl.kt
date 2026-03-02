@@ -44,7 +44,7 @@ class TasksClientImpl(
 
     return httpClient
       .executeRequest {
-        method = HttpMethod.Post
+        method = HttpMethod.Put
         url("${this@TasksClientImpl.host}/api/v1/projects/${task.projectId}/tasks")
         accept(ContentType.Application.Json)
         bearerAuth(tokenProvider.getBearerToken())
