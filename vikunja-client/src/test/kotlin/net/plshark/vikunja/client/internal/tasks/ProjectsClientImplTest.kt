@@ -6,7 +6,8 @@ import kotlinx.serialization.json.Json
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
 import net.plshark.test.TestUtils.doBlocking
-import net.plshark.vikunja.client.Something
+import net.plshark.vikunja.client.VikunjaClientBuilder
+import net.plshark.vikunja.client.VikunjaClientConfig
 import net.plshark.vikunja.client.auth.ApiTokenProvider
 import net.plshark.vikunja.client.models.ModelsProject
 import net.plshark.vikunja.client.tasks.ProjectsClient
@@ -23,9 +24,15 @@ class ProjectsClientImplTest {
   @BeforeEach
   fun setup() {
     server.start()
+    val config =
+      VikunjaClientConfig(
+        authenticationType = VikunjaClientConfig.AuthenticationType.ApiToken,
+        apiKey = "test-token",
+        host = server.url("").toString().removeSuffix("/"),
+      )
     client =
       ProjectsClientImpl(
-        httpClient = Something.createDefaultHttpClient(),
+        httpClient = VikunjaClientBuilder(config).createDefaultHttpClient(),
         tokenProvider = ApiTokenProvider("test-token"),
         host = server.url("").toString().removeSuffix("/"),
       )
