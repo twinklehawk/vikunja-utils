@@ -48,6 +48,9 @@ openApiGenerate {
     "apis" to "false",
     "models" to "",
   )
+  typeMappings = mapOf(
+    "number" to "kotlin.Double"
+  )
 }
 tasks.compileKotlin {
   dependsOn("openApiGenerate")
