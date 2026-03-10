@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices"
+  ],
+  "enabledManagers": [
+    "github-actions",
+    "gradle",
+    "gradle-wrapper",
+    "dockerfile"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "schedule": ["* 4-11 * * 0,3,6"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch", "digest"],
+      "automerge": true
+    }
+  ]
+}
