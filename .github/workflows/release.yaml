@@ -1,0 +1,49 @@
+name: Deploy release
+on:
+  release:
+    types: [ published ]
+jobs:
+  docker-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            .gradle/configuration-cache
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Set up JDK
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Build jar
+        run: ./gradlew assemble --no-daemon
+      - name: Build vikunja-task-creator docker image
+        run: |
+          cd vikunja-task-creator
+          TAG_NAME=${GITHUB_REF#"refs/tags/"}
+          docker build -t vikunja-task-creator \
+            --label="org.opencontainers.image.version=$TAG_NAME" \
+            --label="org.opencontainers.image.revision=$GITHUB_SHA" \
+            --label="org.opencontainers.image.created=$(date +'%Y-%m-%dT%H:%M:%S')" \
+            .
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Publish docker images
+        run: |
+          TAG_NAME=${GITHUB_REF#"refs/tags/"}
+          # strip "v" prefix from tag name
+          TAG_NAME=$(echo $TAG_NAME | sed -e 's/^v//')
+          echo "Publishing image to ghcr.io/twinklehawk/vikunja-task-creator:$TAG_NAME"
+          docker tag vikunja-task-creator ghcr.io/twinklehawk/vikunja-task-creator:$TAG_NAME
+          docker tag vikunja-task-creator ghcr.io/twinklehawk/vikunja-task-creator:latest
+          docker push ghcr.io/twinklehawk/vikunja-task-creator:$TAG_NAME
+          docker push ghcr.io/twinklehawk/vikunja-task-creator:latest

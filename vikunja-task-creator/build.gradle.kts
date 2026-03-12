@@ -1,7 +1,6 @@
 plugins {
   id("project-conventions")
   alias(libs.plugins.kotlin.serialization)
-  application
 }
 
 dependencies {
@@ -20,6 +19,17 @@ dependencies {
   testRuntimeOnly(libs.junit.launcher)
 }
 
-application {
-  mainClass = "net.plshark.vikunjataskcreator.VikunjaTaskCreatorKt"
+val dependenciesDir = layout.buildDirectory.dir("libs/dependencies")
+val copyDependencies by tasks.registering(Copy::class) {
+  from(configurations.runtimeClasspath)
+  into(dependenciesDir)
+}
+tasks.jar {
+  dependsOn(copyDependencies)
+  manifest {
+    attributes(
+      "Main-Class" to "net.plshark.vikunjataskcreator.VikunjaTaskCreatorKt",
+      "Class-Path" to configurations.runtimeClasspath.get().joinToString(" ") { "dependencies/${it.name}" }
+    )
+  }
 }
