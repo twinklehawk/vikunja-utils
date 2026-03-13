@@ -6,8 +6,7 @@ LABEL org.opencontainers.image.source=https://github.com/twinklehawk/vikunja-tas
 LABEL org.opencontainers.image.description="Vikunja Task Creator"
 LABEL org.opencontainers.image.licenses=MIT
 
+COPY build/libs /app
 WORKDIR /app
-COPY build/libs/vikunja-task-creator.jar vikunja-task-creator.jar
-copy build/libs libs
 
 CMD ["vikunja-task-creator.jar"]
