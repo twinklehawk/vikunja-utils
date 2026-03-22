@@ -6,6 +6,8 @@ import net.plshark.vikunja.client.VikunjaClientBuilder
 import net.plshark.vikunja.client.models.ModelsTask
 import net.plshark.vikunja.client.tasks.ProjectsClient
 import net.plshark.vikunja.client.tasks.TasksClient
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 /** Creates Vikunja tasks. */
 class VikunjaTaskCreator(
@@ -15,12 +17,15 @@ class VikunjaTaskCreator(
 ) {
   /** Creates all Vikunja tasks according to the configuration */
   suspend fun createTasks() {
+    logger.info("Creating ${config.tasks.size} tasks")
     for (taskConfig in config.tasks) {
-      createTask(taskConfig)
+      val createdTask = createTask(taskConfig)
+      logger.info("Created task ${createdTask.id}")
     }
+    logger.info("Created ${config.tasks.size} tasks")
   }
 
-  private suspend fun createTask(taskConfig: VikunjaTaskCreatorConfig.TaskConfig) {
+  private suspend fun createTask(taskConfig: VikunjaTaskCreatorConfig.TaskConfig): ModelsTask {
     val projectId = getProjectIdForName(taskConfig.project)
     val task =
       ModelsTask(
@@ -28,7 +33,7 @@ class VikunjaTaskCreator(
         projectId = projectId,
         description = taskConfig.description,
       )
-    tasksClient.createTask(task)
+    return tasksClient.createTask(task)
   }
 
   private suspend fun getProjectIdForName(projectName: String): Int {
@@ -39,6 +44,10 @@ class VikunjaTaskCreator(
         .id
     checkNotNull(projectId) { "Project ID null for project $projectName" }
     return projectId
+  }
+
+  private companion object {
+    val logger: Logger = LoggerFactory.getLogger(VikunjaTaskCreator::class.java)
   }
 }
 
