@@ -36,9 +36,9 @@ openApiGenerate {
   generateModelDocumentation = false
   generateModelTests = false
   generatorName = "kotlin"
-  inputSpec = "$projectDir/src/main/resources/openapi.yaml"
+  inputSpec = file("$projectDir/src/main/resources/openapi.yaml")
   library = "jvm-ktor"
-  outputDir = "$projectDir/build/generated/openapi"
+  outputDir = file("$projectDir/build/generated/openapi")
   configOptions = mapOf(
     "omitGradleWrapper" to "true",
     "packageName" to "net.plshark.vikunja.client",
