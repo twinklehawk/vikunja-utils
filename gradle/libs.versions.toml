@@ -1,7 +1,7 @@
 [versions]
 assertj = "3.27.7"
 detekt = "1.23.8"
-junit = "6.1.0"
+junit = "6.1.1"
 kotlin = "2.4.0"
 kotlinter = "5.5.0"
 kotlinx-coroutines = "1.11.0"
