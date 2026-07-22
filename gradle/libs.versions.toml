@@ -10,7 +10,7 @@ ktor = "3.5.1"
 logback = "1.5.38"
 mockk = "1.14.11"
 mockwebserver = "5.4.0"
-openapi-generator = "7.23.0"
+openapi-generator = "7.24.0"
 slf4j = "2.0.18"
 
 [libraries]
