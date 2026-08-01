@@ -15,7 +15,7 @@
   "schedule": ["* 4-11 * * 0,3,6"],
   "packageRules": [
     {
-      "matchUpdateTypes": ["patch", "digest"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
       "automerge": true
     }
   ]
