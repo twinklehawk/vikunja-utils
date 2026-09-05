@@ -11,7 +11,7 @@ logback = "1.6.3"
 mockk = "1.14.11"
 mockwebserver = "5.5.0"
 openapi-generator = "7.25.0"
-slf4j = "2.0.18"
+slf4j = "2.0.19"
 
 [libraries]
 assertj = { module = "org.assertj:assertj-core", version.ref = "assertj" }
